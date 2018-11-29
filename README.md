@@ -2,8 +2,6 @@
 Backups a directory to S3 after gzipping it and checking if it's different from the last one.
 This avoids to upload multiple backups that are all equals.
 
-You can also exclude one or more directories from the backup just adding an empty file `exclude_dir_from_backup` inside every directory.
-
 Image runs as a cron job by default evey minute. Period may be changed by tuning `BACKUP_CRON_SCHEDULE` environment variable.
 
 May also be run as a one time backup job by using `backup.sh` script as command.
@@ -65,7 +63,7 @@ Works exactly like auto restore but container will stop after restoring and ther
 If you know the file path of backup (relative to `BACKUP_S3_BUCKET`) you can use this functionality to restore that specific status. Container will stop after restoring and there will be no future backups.
 
 #### Examples
-To run any of the restore tasks, proper environment variables shall be set and `/opt/restore.sh` shall be run as command. 
+To run any of the restore tasks, proper environment variables shall be set and `/opt/restore.sh` shall be run as command.
 
 Restore an specific backup and exit:
 ```
@@ -86,4 +84,3 @@ Restoring latest and starting scheduled backup:
 ```
 $ docker run -d -e BACKUP_S3_BUCKET=bucket/directory -e AWS_DEFAULT_REGION=aws-region -e AWS_ACCESS_KEY_ID=awsid -e AWS_SECRET_ACCESS_KEY=awskey -e RESTORE_RESUME_BACKUP=1 -v /dir/to/be/restored/:/data/ mohamnag/s3-dir-backup /opt/restore.sh
 ```
-
